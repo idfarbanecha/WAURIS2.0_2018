@@ -1,0 +1,14 @@
+---
+title: "Clean_script"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Script for map:
+```{r}
+
+```
+
