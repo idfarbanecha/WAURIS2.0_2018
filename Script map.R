@@ -37,4 +37,4 @@ crop=base_world+coord_fixed(xlim=c(-110,139),ylim=c(-31, 60))
 crop+ggtitle('')+geom_jitter(data=counlist,position=position_jitter(width=1.1, height=1.1),aes(x=lon, y=lat, color=Year,size=n),alpha=0.7,stroke=2)+labs(colour='Outbreak years')+theme(plot.title = element_text(size = '15',face = 'bold.italic',hjust = 0.5))
 
 
-#un super commentaire avec une fautessss
+#un super commentaire avec une faute
