@@ -10,8 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ###Loading the data:
 ```{r}
 counlist=read.table(file='Countries.txt',header = T,sep='\t')
+
+levels(counlist$Country)
 totaln=tapply(counlist$n,counlist$Country,sum)
-countries=unique(counlist$Country)
 outot=data.frame(countries,totaln)
+
 ```
 
