@@ -7,8 +7,11 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-###Script for map:
+###Loading the data:
 ```{r}
-
+counlist=read.table(file='Countries.txt',header = T,sep='\t')
+totaln=tapply(counlist$n,counlist$Country,sum)
+countries=unique(counlist$Country)
+data
 ```
 
