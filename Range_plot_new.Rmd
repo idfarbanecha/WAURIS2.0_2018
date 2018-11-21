@@ -1,0 +1,20 @@
+---
+title: "Range plots"
+author: "Léonard Jequier"
+date: "21 novembre 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Data
+```{r}
+mic = read.csv("antifongiques_MICs_cplt.csv", header = T, sep = ";")
+names(mic)[1] = "Country"
+summary(mic)
+```
+
+### 
+
