@@ -12,6 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 counlist=read.table(file='Countries.txt',header = T,sep='\t')
 totaln=tapply(counlist$n,counlist$Country,sum)
 countries=unique(counlist$Country)
-data
+outot=data.frame(countries,totaln)
 ```
 
