@@ -10,11 +10,36 @@ knitr::opts_chunk$set(echo = TRUE)
 ###Loading the data:
 ```{r}
 counlist=read.table(file='Countries.txt',header = T,sep='\t')
-
-levels(counlist$Country)
 totaln=tapply(counlist$n,counlist$Country,sum)
-totaln
+names(totaln)[1]=c('Pakistan')
 outot=data.frame(names(totaln),totaln,row.names = NULL)
+colnames(outot)=c('Country','Total_isolates')
+```
 
+###Mapping:
+####Without points:
+```{r}
+library(ggplot2)
+library(dplyr)
+WorldData <- map_data('world')
+WorldData %>% filter(region != "Antarctica") -> WorldData
+WorldData <- fortify(WorldData)
+
+p <- ggplot()
+p <- p + geom_map(data=WorldData, map=WorldData,
+                  aes(x=long, y=lat, group=group, map_id=region),
+                  fill="white", colour="#7f7f7f", size=0.5)
+p <- p + geom_map(data=outot, map=WorldData,
+                  aes(fill=log10(Total_isolates), map_id=Country),
+                  colour="#7f7f7f", size=0.5)
+p <- p + coord_map("rectangular", lat0=0, xlim=c(-180,180), ylim=c(-60, 90))
+p <- p + scale_fill_continuous(low="thistle2", high="darkred", 
+                               guide="colorbar")
+p <- p + scale_y_continuous(breaks=c())
+p <- p + scale_x_continuous(breaks=c())
+p <- p + labs(fill="Number of total isolates", title="Title", x="", y="")
+p <- p + theme_bw()
+p <- p + theme(panel.border = element_blank())
+p 
 ```
 
