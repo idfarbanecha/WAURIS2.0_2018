@@ -13,7 +13,8 @@ counlist=read.table(file='Countries.txt',header = T,sep='\t')
 
 levels(counlist$Country)
 totaln=tapply(counlist$n,counlist$Country,sum)
-outot=data.frame(countries,totaln)
+totaln
+outot=data.frame(names(totaln),totaln,row.names = NULL)
 
 ```
 
