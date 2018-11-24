@@ -9,11 +9,24 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Loading the data:
 ```{r}
-counlist=read.table(file='Countries.txt',header = T,sep='\t')
+counlist=read.table(file='Countries.txt',header = T,sep='\t',stringsAsFactors = F)
+
+
+
 totaln=tapply(counlist$n,counlist$Country,sum)
-names(totaln)[1]=c('Pakistan')
+
 outot=data.frame(names(totaln),totaln,row.names = NULL)
 colnames(outot)=c('Country','Total_isolates')
+
+outot$n_outbreaks=as.numeric(table(counlist$Country))
+
+lat=unique(subset(counlist$lat,counlist$Country%in%outot$Country))
+names(lat)=unique(counlist$Country)
+
+lon=unique(subset(counlist$lon,counlist$Country%in%outot$Country))
+names(lon)=unique(counlist$Country)
+latlon=data.frame(Country=names(lat),lat,lon)
+outot=merge(outot,latlon,by='Country')
 ```
 
 ###Mapping:
@@ -30,16 +43,27 @@ p <- p + geom_map(data=WorldData, map=WorldData,
                   aes(x=long, y=lat, group=group, map_id=region),
                   fill="white", colour="#7f7f7f", size=0.5)
 p <- p + geom_map(data=outot, map=WorldData,
-                  aes(fill=log10(Total_isolates), map_id=Country),
+                  aes(fill=Total_isolates, map_id=Country),
                   colour="#7f7f7f", size=0.5)
 p <- p + coord_map("rectangular", lat0=0, xlim=c(-180,180), ylim=c(-60, 90))
-p <- p + scale_fill_continuous(low="thistle2", high="darkred", 
-                               guide="colorbar")
 p <- p + scale_y_continuous(breaks=c())
 p <- p + scale_x_continuous(breaks=c())
-p <- p + labs(fill="Number of total isolates", title="Title", x="", y="")
 p <- p + theme_bw()
 p <- p + theme(panel.border = element_blank())
-p 
+p <- p + scale_fill_gradient(low ="thistle2",high="darkred",breaks=c(1,10,100,200),trans='log10')
+p
 ```
+####With the number of outbreaks:
+```{r}
+p=p + geom_point(data=outot,aes(x=lon,y=lat,size=n_outbreaks),alpha=0.8)
+p <- p + labs(size='Number of outbreaks',fill="Number of total isolates", title="", x="", y="")
+p
+```
+###Saving:
+```{r}
+ggsave(filename ='map.pdf',plot=p,width = 9, height = 9)
+```
+
+
+
 
