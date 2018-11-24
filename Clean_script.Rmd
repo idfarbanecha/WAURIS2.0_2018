@@ -55,14 +55,15 @@ p
 ```
 ####With the number of outbreaks:
 ```{r}
-p=p + geom_point(data=outot,aes(x=lon,y=lat,size=n_outbreaks),alpha=0.8)
+p=p + geom_point(data=outot,aes(x=lon,y=lat,size=n_outbreaks),alpha=0.5,stroke=1.2)
 p <- p + labs(size='Number of outbreaks',fill="Number of total isolates", title="", x="", y="")
 p
 ```
 ###Saving:
 ```{r}
-ggsave(filename ='map.pdf',plot=p,width = 9, height = 9)
+ggsave(filename ='map.pdf',plot=p,width = 10, height = 10)
 ```
+
 
 
 
