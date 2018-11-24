@@ -43,9 +43,9 @@ for(i in seq(1:length(mic$Country))){
 ### Fluconazole - plot
 ```{r}
 library("ggplot2")
-library(graphics)
 
-xlab = c(expression(frac(1,32)), expression(frac(1,16)), expression(frac(1,8)),  expression(frac(1,4)), expression(frac(1,2)), 2 ** seq(0,8))
+#xlab = c(expression(frac(1,32)), expression(frac(1,16)), expression(frac(1,8)),  expression(frac(1,4)), expression(frac(1,2)), 2 ** seq(0,8))
+xlab = 2 ** seq(-4,8)
 length(xlab)
 length(seq(-5,8))
 #breakpoint glabrata = 32
@@ -63,19 +63,19 @@ pf = pf +  geom_segment(aes(x=FL_min,
 
 pf2 = pf + scale_y_continuous(name = "",breaks = 1:length(mic$n) ,labels = as.character(mic$epi)) 
 
-pf3 = pf2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-5.5, 8.5), breaks = seq(-5, 8), labels = xlab)
+pf3 = pf2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-4.5, 8.5), breaks = seq(-4, 8), labels = xlab)
 
 pf3 = pf3 + geom_vline(xintercept= (log2(32)), colour = "red", linetype = "dashed")
-pf3 = pf3 + coord_fixed(0.7)
+pf3 = pf3 + coord_fixed(0.8)
 subt = expression(paste("with breakpoint for ", italic("C.glabrata")))
 pf3 = pf3 + labs(title = "Fluconazole", subtitle = subt)
-pf3 = pf3 + theme(plot.margin = unit(c(1,0.25,0.5,0.5), "cm"),
+pf3 = pf3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
                   plot.subtitle=element_text(size=20, hjust=0,
                                             color="red"), 
-                  axis.text.y = element_text(size = 15), 
-                  axis.title.x = element_text(size = 20),
-                  axis.text.x = element_text(size = 12))
+                  axis.text.y = element_text(size = 15, face = "bold"), 
+                  axis.title.x = element_text(size = 20, face = "bold"),
+                  axis.text.x = element_text(size = 15, angle = 45, hjust = 1, face = "bold"))
 
 print(pf3)
 
@@ -116,19 +116,20 @@ pc = pc +  geom_segment(aes(x=Casp_min,
 
 pc2 = pc + scale_y_continuous(name = "", breaks = 1:length(mic$n) ,labels = rep(c(""), times = length(mic$n))) 
 
-pc3 = pc2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-5.5, 8.5), breaks = seq(-5, 8), labels = xlab)
+pc3 = pc2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-4.5, 8.5), breaks = seq(-4, 8), labels = xlab)
 
 pc3 = pc3 + geom_vline(xintercept= (log2(0.064)), colour = "red", linetype = "dashed") 
   
-pc3 = pc3 + coord_fixed(0.7)
+pc3 = pc3 + coord_fixed(0.8)
 subt = expression(paste("with Anidafungin breakpoint for ", italic("C.glabrata")))
 pc3 = pc3 + labs(title = "Caspofungin", subtitle = subt)
-pc3 = pc3 + theme(plot.margin = unit(c(1,0.25,0.5,0.5), "cm"),
+pc3 = pc3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
                   plot.subtitle=element_text(size=20, hjust=0,
                                             color="red"), 
-                  axis.title.x = element_text(size = 20),
-                  axis.text.x = element_text(size = 12))
+                  axis.text.y = element_text(size = 15, face = "bold"), 
+                  axis.title.x = element_text(size = 20, face = "bold"),
+                  axis.text.x = element_text(angle = 45, hjust = 1, size = 15, face = "bold"))
 
 
 print(pc3)
@@ -171,18 +172,19 @@ pa = pa +  geom_segment(aes(x=AMB_min,
                       colour = "cornflowerblue") 
 
 pa2 = pa + scale_y_continuous(name = "",breaks = 1:length(mic$n) ,labels = as.character(mic$epi)) 
-pa3 = pa2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-5.5, 8.5), breaks = seq(-5, 8), labels = xlab)
+pa3 = pa2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-4.5, 8.5), breaks = seq(-4, 8), labels = xlab)
 
 pa3 = pa3 + geom_vline(xintercept= (log2(1)), colour = "red", linetype = "dashed")
-pa3 = pa3 + coord_fixed(0.7)
+pa3 = pa3 + coord_fixed(0.8)
 subt = expression(paste("with breakpoint for ", italic("C.glabrata")))
 pa3 = pa3 + labs(title = "Amphotericin B", subtitle = subt)
-pa3 = pa3 + theme(plot.margin = unit(c(1,0.25,0.5,0.5), "cm"),
+pa3 = pa3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
                   plot.subtitle=element_text(size=20, hjust=0,
-                                             color = "red"), 
-                  axis.title.x = element_text(size = 20),
-                  axis.text.x = element_text(size = 12))
+                                            color="red"), 
+                  axis.text.y = element_text(size = 15, face = "bold"), 
+                  axis.title.x = element_text(size = 20, face = "bold"),
+                  axis.text.x = element_text(angle = 45, hjust = 1, size = 15, face = "bold"))
 
 print(pa3)
 
@@ -208,10 +210,13 @@ s3 = s2 + scale_x_continuous(name = "Number of isolates",limits = c(log10(0.9), 
 
 s4 = s3 + coord_fixed(0.1)
 s4 = s4 + labs(title = "Number of isolates")
-s4 = s4 + theme(plot.margin = unit(c(1,0.25,0.5,0.5), "cm"),
-                  plot.title = element_text(hjust = 0, size = 30), 
-                  axis.title.x = element_text(size = 20),
-                  axis.text.x = element_text(size = 12))
+s4 = s4 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
+                  plot.title = element_text(hjust = 0, size = 30),
+                  plot.subtitle=element_text(size=20, hjust=0,
+                                            color="red"), 
+                  axis.text.y = element_text(size = 15, face = "bold"), 
+                  axis.title.x = element_text(size = 20, face = "bold"),
+                  axis.text.x = element_text(size = 15, face = "bold"))
 
 print(s4)
 dev.off()
@@ -264,18 +269,19 @@ dev.off()
 #breakpoint glabrata = 1
 
 p2a2 = pa + scale_y_continuous(name = "",breaks = 1:length(mic$n) ,labels = rep("", times = length(mic$n))) 
-p2a3 = p2a2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-5.5, 8.5), breaks = seq(-5, 8), labels = xlab)
+p2a3 = p2a2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-4.5, 8.5), breaks = seq(-4, 8), labels = xlab)
 
 p2a3 = p2a3 + geom_vline(xintercept= (log2(1)), colour = "red", linetype = "dashed")
-p2a3 = p2a3 + coord_fixed(0.7)
+p2a3 = p2a3 + coord_fixed(0.8)
 subt = expression(paste("with breakpoint for ", italic("C.glabrata")))
 p2a3 = p2a3 + labs(title = "Amphotericin B", subtitle = subt)
-p2a3 = p2a3 + theme(plot.margin = unit(c(1,0.25,0.5,0.5), "cm"),
+p2a3 = p2a3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
                   plot.subtitle=element_text(size=20, hjust=0,
-                                             color = "red"), 
-                  axis.title.x = element_text(size = 20),
-                  axis.text.x = element_text(size = 12))
+                                            color="red"), 
+                  axis.text.y = element_text(size = 15, face = "bold"), 
+                  axis.title.x = element_text(size = 20, face = "bold"),
+                  axis.text.x = element_text(size = 15, angle = 45, hjust = 1, face = "bold"))
 
 print(p2a3)
 
