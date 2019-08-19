@@ -9,31 +9,31 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ###Loading the data:
 ```{r}
-counlist=read.table(file='Countries.txt',header = T,sep='\t',stringsAsFactors = F)
+#counlist=read.table(file='Countries.txt',header = T,sep='\t',stringsAsFactors = F)
+counlist=read.table(file='Country_updated.csv',header = T,sep='\t',stringsAsFactors = T)#Updated outbreak list(https://link.springer.com/article/10.1007%2Fs11908-019-0675-8)
 
 
-
-totaln=tapply(counlist$n,counlist$Country,sum)
+totaln=tapply(counlist$n,counlist$Country,sum)#calculate number of isolates (cases) per country
 
 outot=data.frame(names(totaln),totaln,row.names = NULL)
 colnames(outot)=c('Country','Total_isolates')
 
-outot$n_outbreaks=as.numeric(table(counlist$Country))
+outot$n_outbreaks=as.numeric(table(counlist$Country))#Calculate number of outbreak per country
 
-lat=unique(subset(counlist$lat,counlist$Country%in%outot$Country))
-names(lat)=unique(counlist$Country)
+coord_unique=subset(counlist,!duplicated(counlist$Country),select = c("Country","lat","lon"))
 
-lon=unique(subset(counlist$lon,counlist$Country%in%outot$Country))
-names(lon)=unique(counlist$Country)
-latlon=data.frame(Country=names(lat),lat,lon)
-outot=merge(outot,latlon,by='Country')
+outot=merge(outot,coord_unique,by='Country')
 ```
 
 ###Mapping:
 ####Without points:
 ```{r}
+#install.packages("mapproj")
+#install.packages('maps')
 library(ggplot2)
 library(dplyr)
+library(maps)
+library(mapproj)
 WorldData <- map_data('world')
 WorldData %>% filter(region != "Antarctica") -> WorldData
 WorldData <- fortify(WorldData)
@@ -50,7 +50,7 @@ p <- p + scale_y_continuous(breaks=c())
 p <- p + scale_x_continuous(breaks=c())
 p <- p + theme_bw()
 p <- p + theme(panel.border = element_blank())
-p <- p + scale_fill_gradient(low ="thistle2",high="darkred",breaks=c(1,10,100,200),trans='log10')
+p <- p + scale_fill_gradient(low="thistle2",high="darkred",breaks=c(1,10,100,200,max(counlist$n)),trans='log10')
 p
 ```
 ####With the number of outbreaks:
