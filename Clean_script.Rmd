@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ###Loading the data:
 ```{r}
 #counlist=read.table(file='Countries.txt',header = T,sep='\t',stringsAsFactors = F)
-counlist=read.table(file='Country_updated.csv',header = T,sep='\t',stringsAsFactors = T)#Updated outbreak list(https://link.springer.com/article/10.1007%2Fs11908-019-0675-8)
+counlist=read.table(file='Country_updated.csv',header = T,sep='\t',stringsAsFactors = F)#Updated outbreak list(https://link.springer.com/article/10.1007%2Fs11908-019-0675-8)
 
 
 totaln=tapply(counlist$n,counlist$Country,sum)#calculate number of isolates (cases) per country
@@ -55,13 +55,39 @@ p
 ```
 ####With the number of outbreaks:
 ```{r}
-p=p + geom_point(data=outot,aes(x=lon,y=lat,size=n_outbreaks),alpha=0.5,stroke=1.2)
-p <- p + labs(size='Number of outbreaks',fill="Number of total isolates", title="", x="", y="")
-p
+p1=p + geom_point(data=outot,aes(x=lon,y=lat,size=n_outbreaks),alpha=0.5,stroke=1.2)
+p1 <- p + labs(size='Number of outbreaks',fill="Number of total isolates", title="", x="", y="")
+p1
 ```
+###Other way of plotting the world map:
+```{r}
+world_map <- map_data("world")
+world_map %>% filter(region != "Antarctica")->world_map
+world_map=fortify(world_map)
+
+p <- ggplot() + coord_fixed() +
+  xlab("") + ylab("")
+base_world_messy <- p + geom_polygon(data=world_map, aes(x=long, y=lat, group=group), 
+                                     colour="#7f7f7f", fill="white")
+base_world_messy
+cleanup <- 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "white"),
+        axis.ticks=element_blank(), axis.text.x=element_blank(),
+        axis.text.y=element_blank())
+base_world=base_world_messy+cleanup
+base_world
+```
+###Colouring per outbreak:
+```{r}
+colour_per_outreak=base_world+ggtitle('')+geom_jitter(data=counlist,position=position_jitter(width=1.4, height=1.4),aes(x=lon, y=lat, color=Year,size=n),alpha=0.6,stroke=0.9)+labs(colour='Outbreak years')+theme(legend.title = element_text(size = 15),legend.text =element_text(size = 14) )+scale_size_continuous(range = c(5,17),breaks = c(min(counlist$n),mean(counlist$n),max(counlist$n)))
+colour_per_outreak
+```
+
+
 ###Saving:
 ```{r}
-ggsave(filename ='map.pdf',plot=p,width = 10, height = 10)
+ggsave(filename ='map.pdf',plot=colour_per_outreak,height = 17,width = 17)
 ```
 
 
