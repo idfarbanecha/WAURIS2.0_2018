@@ -240,7 +240,7 @@ grid.newpage()
 grid.draw(g)
 dev.off()
 
-tiff('arrenged_final.tiff',height = 2480/2 , width = 3508/2)
+tiff('../arrenged_final.tiff',height = 2480/2 , width = 3508/2,compression ="lzw",res=300)
 g0 = ggplotGrob(pf3)
 g00 <- ggplotGrob(pc3)
 g1 <- ggplotGrob(pa3)
