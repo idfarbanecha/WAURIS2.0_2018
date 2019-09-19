@@ -82,9 +82,9 @@ pf3 = pf3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
                   plot.subtitle=element_text(size=20, hjust=0,
                                             color="red"), 
-                  axis.text.y = element_text(size = 14, face = "bold"), 
+                  axis.text.y = element_text(size = 13, face = "bold"), 
                   axis.title.x = element_text(size = 20, face = "bold"),
-                  axis.text.x = element_text(size = 17, angle = 45, hjust = 1, face = "bold"))
+                  axis.text.x = element_text(size = 12, angle = 45, hjust = 1, face = "bold"))
 
 
 
@@ -129,7 +129,7 @@ pc3 = pc2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-6.3, 5.3), breaks
 
 pc3 = pc3 + geom_vline(xintercept= (log2(2)), colour = "red", linetype = "dashed") 
 pc3 = pc3 + coord_fixed(0.8)
-subt = expression(paste("Tentative breakpoint for ", italic("C.auris")))
+subt = expression(paste(""))
 pc3 = pc3 + labs(title = "Caspofungin", subtitle = subt)
 pc3 = pc3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
@@ -137,7 +137,7 @@ pc3 = pc3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                                             color="red"), 
                   axis.text.y = element_text(size = 9, face = "bold"), 
                   axis.title.x = element_text(size = 20, face = "bold"),
-                  axis.text.x = element_text(size = 17, angle = 45, hjust = 1, face = "bold"))
+                  axis.text.x = element_text(size = 12, angle = 45, hjust = 1, face = "bold"))
 
 
 
@@ -178,7 +178,7 @@ pa3 = pa2 + scale_x_continuous(name = "MIC (mg/L)",limits = c(-4.3, 8.3), breaks
 
 pa3 = pa3 + geom_vline(xintercept= (log2(2)), colour = "red", linetype = "dashed")
 pa3 = pa3 + coord_fixed(0.8)
-subt = expression(paste("Tentative breakpoint for ", italic("C.auris")))
+subt = expression(paste(""))
 pa3 = pa3 + labs(title = "Amphotericin B", subtitle = subt)
 pa3 = pa3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
@@ -186,7 +186,7 @@ pa3 = pa3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                                             color="red"), 
                   axis.text.y = element_text(size = 15, face = "bold"), 
                   axis.title.x = element_text(size = 20, face = "bold"),
-                  axis.text.x = element_text(size = 15, angle = 45, hjust = 1, face = "bold"))
+                  axis.text.x = element_text(size = 12, angle = 45, hjust = 1, face = "bold"))
 
 
 ```
@@ -211,9 +211,9 @@ s4 = s4 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   plot.title = element_text(hjust = 0, size = 30),
                   plot.subtitle=element_text(size=20, hjust=0,
                                             color="red"), 
-                  axis.text.y = element_text(size = 15, face = "bold"), 
+                  axis.text.y = element_text(size = 13, face = "bold"), 
                   axis.title.x = element_text(size = 20, face = "bold"),
-                  axis.text.x = element_text(size = 17, face = "bold"))
+                  axis.text.x = element_text(size = 12,angle = 45, hjust = 1, face = "bold"))
 
 png('number.png',height = 550 , width = 500)
 print(s4)
@@ -240,7 +240,7 @@ grid.newpage()
 grid.draw(g)
 dev.off()
 
-tiff('../arrenged_final.tiff',height = 2480/2 , width = 3508/2,compression ="lzw",res=300)
+tiff('../arrenged_final.tiff',height = 50 , width = 50,units = 'cm',compression ="lzw",res=300)
 g0 = ggplotGrob(pf3)
 g00 <- ggplotGrob(pc3)
 g1 <- ggplotGrob(pa3)
