@@ -86,6 +86,8 @@ pf3 = pf3 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
                   axis.title.x = element_text(size = 20, face = "bold"),
                   axis.text.x = element_text(size = 12, angle = 45, hjust = 1, face = "bold"))
 
+print(pf3)
+
 
 
 ```
@@ -217,7 +219,7 @@ s4 = s4 + theme(plot.margin = unit(c(0.5,0.25,0.5,0.5), "cm"),
 
 png('number.png',height = 550 , width = 500)
 print(s4)
-dev.off
+dev.off()
 ```
 
 ### all together now
@@ -240,7 +242,7 @@ grid.newpage()
 grid.draw(g)
 dev.off()
 
-tiff('../arrenged_final.tiff',height = 50 , width = 50,units = 'cm',compression ="lzw",res=300)
+tiff('arrenged_final.tiff',height = 50 , width = 50,units = 'cm',compression ="lzw",res=300)
 g0 = ggplotGrob(pf3)
 g00 <- ggplotGrob(pc3)
 g1 <- ggplotGrob(pa3)
